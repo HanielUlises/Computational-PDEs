@@ -1,0 +1,4 @@
+torch
+deepxde
+numpy
+matplotlib==3.5.3
