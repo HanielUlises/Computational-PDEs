@@ -3,7 +3,7 @@ A partial differential equation that describes how the temperature of a physical
 It is typically written as:
 
 ```math
-    \frac{\delta(u)} {\delta(t)} = k \frac{\delta(u^2)} {\delta(x^2)} 
+    \frac{\partial(u)} {\partial(t)} = k \frac{\partial(u^2)} {\partial(x^2)} 
 ```
 
 We can use finite difference, such as the central difference method to approximate the derivative of a function by calculating the slope between two nearby points:
@@ -59,7 +59,7 @@ Numerical derivation schemes are techniques to approximate derivates of function
 The process of convertging a continuous mathematical function to a discrete form, considering:
 
 ```math
-    \frac{\delta(u)} {\delta(t)} = k \frac{\delta(u^2)} {\delta(x^2)} ,
+    \frac{\partial(u)} {\partial(t)} = k \frac{\partial(u^2)} {\partial(x^2)} ,
 ```
 
 and the first and second derivative equivalents:
