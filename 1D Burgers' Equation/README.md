@@ -22,5 +22,23 @@ The nonlinear convective term may lead to the development of steep gradients or 
 
 The equation will be solved using a **Total Variation Diminishing (TVD)** method. TVD schemes are designed to accurately capture sharp gradients and discontinuities while preventing spurious numerical oscillations. By incorporating flux limiters, these methods achieve high resolution in smooth regions and maintain stability near shocks.
 
-The objective of this study is to analyze the temporal evolution of the Burgers' equation solution and evaluate the capability of the TVD scheme to resolve nonlinear wave propagation and shock formation.
+### Diffusigve term (central in space)
+
+```math
+    f'(x) \simeq \frac{(f(x + \Delta x) - f(x - \Delta x))}{2\Delta x}
+
+    \newline
+    f''(x) \simeq \frac{f(x + \Delta x) - 2f(x) + f(x - \Delta x)}{\Delta x^2}
+```
+
+### Convection Term (TVD Scheme):
+
+```math
+   \frac{\partial u}{\partial x} = - \frac{H_{i+\frac{1}{2}} - H_{i-\frac{1}{2}}}{\Delta x} 
+   
+   \newline
+   H_{i +\frac{1}{2}} = \frac{1}{2}(f(u^L_{i+\frac{1}{2}}) + f(u^R_{i+\frac{1}{2}}) - a_{i+\frac{1}{2}}(u^R_{i + \frac{1}{2}} - u^L_{i + \frac{1}{2}}) ),
+   
+   \newline
+   a_{i+\frac{1}{2}} = max{|f'(u^L_{i + \frac{1}{2}})|, |f'(u^R_{i + \frac{1}{2}})|}
 ```
