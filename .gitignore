@@ -218,5 +218,6 @@ __marimo__/
 .streamlit/secrets.toml
 
 pinn_env/
+physicsnemo_env/
 __pycache__/
 .DS_Store
