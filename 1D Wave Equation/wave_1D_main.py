@@ -70,6 +70,13 @@ def run(cfg: ModulusConfig) -> None:
     T = np.expand_dims(T.flatten(), axis=-1)
     u = np.sin(X) * (np.cos(T) + np.sin(T))
 
+    invar = {"x": X, "t": T}
+    outvar = {"u": u}
+
+    validator = PointwiseValidator(
+        nodes=nodes, invar=invar, true_outvar=outvar, batch_size=128
+    )
+
 
 def __name__ == "__main__":
     run()
