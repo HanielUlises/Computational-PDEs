@@ -76,6 +76,7 @@ def run(cfg: ModulusConfig) -> None:
     validator = PointwiseValidator(
         nodes=nodes, invar=invar, true_outvar=outvar, batch_size=128
     )
+    domain.add_validator(validator=validator)
 
 
 def __name__ == "__main__":
