@@ -60,5 +60,16 @@ def run(cfg: ModulusConfig) -> None:
     )
     domain.add_constraint("interior", interior)
 
+    deltaT = 0.01
+    deltaX = 0.01
+
+    x = np.arange(0,  L, deltaX)
+    t = np.arange(0,2*L, deltaT)
+    X, T = np.meshgrid(x, t)
+    X = np.expand_dims(X.flatten(), axis=-1)
+    T = np.expand_dims(T.flatten(), axis=-1)
+    u = np.sin(X) * (np.cos(T) + np.sin(T))
+
+
 def __name__ == "__main__":
     run()
