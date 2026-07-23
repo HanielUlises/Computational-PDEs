@@ -13,3 +13,52 @@ from modulus.sym.domain.validator import PointwiseValidator
 from modulus.sym.key import Key
 from modulus.sym.node import Node
 from wave_eq_main import WaveEquation1D
+
+@modulus.sym.main(config_path="./", config_name="config_main")
+
+def run(cfg: ModulusConfig) -> None:
+    we = WaveEquation1D(c=1.0)
+    wave_net = instantiate_arch(
+        input_keys=[Key("x"), Key("t")],
+        output_keys=[Key("u")]
+        cfg=cfg.arch.fully_connected,
+    )
+
+    nodes = we.make_nodes() + [wave_net.make_node()]
+
+    x_symbol , t_symbol = Symbol("x"), Symbol("t")
+    L = float(np.pi)
+    geometry = Line1D(0, L)
+    time_range = {t_symbol: (0,2*L)}
+
+    domain = Domain()
+    IC = PointwiseInteriorConstraint(
+        nodes=nodes,
+        geometry=geometry,
+        outvar={"u": sin(x_symbol), "u__t": sin(x_symbol)}
+        batch_size=cfg.batch_size.IC,
+        lambda_weighting={"u":1.0, "u__t":1.0},
+        parameterization={t_symbol:0.0},
+    )
+    domain.add_constraint(IC, "IC")
+
+    BC = PointwiseBoundaryConstraint(
+        nodes=nodes,
+        geometry=geometry,
+        outvar={"u": 0},
+        batch_size=cfg.batch_size.BC,
+        parameterization=time_range
+    )
+    domain.add_constraint(BC, "BC")
+
+    interior = PointwiseInteriorConstraint(
+        nodes=nodes,
+        geometry=geometry,
+        outvar={"wave_equation": 0},
+        batch_size=cfg.batch_size.interior,
+        parameterization=time_range,
+    )
+    domain.add_constraint("interior", interior)
+
+def __name__ == "__main__":
+    run()
