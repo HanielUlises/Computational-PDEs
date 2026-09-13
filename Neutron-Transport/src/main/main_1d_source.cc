@@ -18,9 +18,12 @@ int main () {
         A.add(i, i, b);
         A.add(i, i + 1, a);
     }
+    A.deleteRow(0);
 
     std::vector<double> source (npoints, 1.0);
     std::vector<double> phi (npoints, 0.0);
+    phi[0] = 0.0;
+    phi[npoints - 1] = 0.0;
 
     A.solve_cg(phi, source);
 
