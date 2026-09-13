@@ -14,11 +14,14 @@ int main () {
     for(int i = 0; i < npoints; i++) {
         double a = -d / (h * h);
         double b = 2 * d / (h * h) + xs_a;
-        A.add(i, i - 1, b);
-        A.add(i, i, b);
-        A.add(i, i + 1, a);
+        A.insert(i, i - 1, b);
+        A.insert(i, i, b);
+        A.insert(i, i + 1, a);
     }
     A.deleteRow(0);
+    A.insert(0, 0, 1.0);
+    A.deleteRow(npoints - 1);
+    A.insert(npoints - 1, npoints - 1, 1.0);
 
     std::vector<double> source (npoints, 1.0);
     std::vector<double> phi (npoints, 0.0);
